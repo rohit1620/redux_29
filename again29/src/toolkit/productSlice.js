@@ -1,33 +1,26 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
-
-const productData=createAsyncThunk('product',async()=>{
+export const productData=createAsyncThunk('product',async()=>{
     let res=await fetch("https://dummyjson.com/products");
     res=await res.json();
-    console.log("datas",res);
+    console.log("datas",res.products);
     
     return res;
 })
-
-
-
-
-
 const initialState={
     items:[],
     status:undefined,
     error:null    
 }
 
-export const getData=createSlice({
+ const getData=createSlice({
     name:"product",
     initialState,
     extraReducers:(builder)=>{
-         builder.addCase(productData.fulfilled,(state,actions)=>{
+         builder.addCase(productData.fulfilled,(state,action)=>{
            state.status='succeeded',
-           state.items=actions.payload
+           state.items=action.payload.products
          })
     }
 })
 
-export default productData.reducer;
+export default getData.reducer;

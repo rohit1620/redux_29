@@ -1,8 +1,13 @@
+import { useEffect } from "react";
 import { addItem, removeItem, remove2Item, add2Item } from "../toolkit/slice";
 import { useDispatch } from "react-redux";
+import { productData } from "../toolkit/productSlice";
 
 export default function ProductCard() {
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(productData());
+  }, [dispatch]);
   return (
     <div className="h-screen w-[80%] m-auto bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition">
       {/* Product Image */}
